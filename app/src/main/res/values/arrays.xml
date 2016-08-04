@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="colors_progressbar">
+        <item>@color/green</item>
+        <item>@color/yellow</item>
+        <item>@color/color_primary</item>
+        <item>@color/color_accent</item>
+    </array>
+</resources>

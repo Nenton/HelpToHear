@@ -1,11 +1,14 @@
 package com.nenton.speechya.ui.activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,12 +19,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.nenton.speechya.R;
 import com.nenton.speechya.data.manager.DataManager;
 import com.nenton.speechya.data.storage.models.Dialog;
 import com.nenton.speechya.data.storage.models.StandartPhrase;
 import com.nenton.speechya.ui.adapters.StandartPhraseAdapter;
+import com.nenton.speechya.utils.ConstantManager;
 
 import java.util.Date;
 import java.util.List;
@@ -47,6 +52,40 @@ public class Main2Activity extends AppCompatActivity
     }
 
 
+    @Override
+    protected android.app.Dialog onCreateDialog(int id) {
+        switch (id) {
+            case ConstantManager.ADD_PHRASE:
+                AlertDialog.Builder builder = new AlertDialog.Builder(Main2Activity.this);
+                LayoutInflater layoutInflater = this.getLayoutInflater();
+                final EditText inflate = (EditText) layoutInflater.inflate(R.layout.dialog_add_phrase, null);
+                builder.setTitle("Добавить фразу");
+                builder.setView(inflate)
+                        .setPositiveButton("Добавить", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                if (!inflate.getText().toString().isEmpty()) {
+                                    StandartPhrase standartPhrase = new StandartPhrase(inflate.getText().toString(), (new Date()).getTime());
+                                    standartPhrases.add(0, standartPhrase);
+                                    mDataManager.createNewPhrase(standartPhrase);
+                                    inflate.setText("");
+                                    adapter.notifyDataSetChanged();
+                                }
+                            }
+                        })
+                        .setNegativeButton("Отменить", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                inflate.setText("");
+                                dialog.cancel();
+                            }
+                        });
+                return builder.create();
+            default:
+                return null;
+        }
+    }
+
     private void setupSwipe() {
         ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN, ItemTouchHelper.LEFT) {
 
@@ -58,12 +97,12 @@ public class Main2Activity extends AppCompatActivity
                 standartPhrases.add(toPosition, prev);
                 if (toPosition > fromPosition) {
                     mDataManager.updatePhrase(prev.getMId(), toPosition);
-                    for (int i = (int)fromPosition; i < toPosition; i++) {
+                    for (int i = (int) fromPosition; i < toPosition; i++) {
                         mDataManager.updatePhrase(standartPhrases.get(i).getMId(), i);
                     }
                 } else {
                     mDataManager.updatePhrase(prev.getMId(), toPosition);
-                    for (int i = (int)toPosition + 1; i < fromPosition + 1; i++) {
+                    for (int i = (int) toPosition + 1; i < fromPosition + 1; i++) {
                         mDataManager.updatePhrase(standartPhrases.get(i).getMId(), i);
                     }
                 }
@@ -124,7 +163,7 @@ public class Main2Activity extends AppCompatActivity
             public void onClick(View v) {
                 Date date = new Date();
                 mDataManager.getPreferencesManager().setCreateDateDialog(date.getTime());
-                mDataManager.createNewDialog(new Dialog(date));
+                mDataManager.createNewDialog(new Dialog(date.getTime()));
                 Intent intent = new Intent(Main2Activity.this, MainActivity.class);
                 startActivity(intent);
             }
@@ -147,11 +186,12 @@ public class Main2Activity extends AppCompatActivity
         return true;
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.action_add) {
+            showDialog(ConstantManager.ADD_PHRASE);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -163,7 +203,7 @@ public class Main2Activity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.history_dialogs) {
-            Intent intent = new Intent(Main2Activity.this,DialogsActivity.class);
+            Intent intent = new Intent(Main2Activity.this, DialogsActivity.class);
             startActivity(intent);
         } else if (id == R.id.settings) {
 

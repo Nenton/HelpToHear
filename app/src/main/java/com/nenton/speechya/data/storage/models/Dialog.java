@@ -20,13 +20,13 @@ public class Dialog {
 
     @NotNull
     @Unique
-    private Date dateCreateDialog;
+    private long dateCreateDialog;
 
     @NotNull
     private String lastMessage;
 
     @NotNull
-    private Date lastEditDate;
+    private long lastEditDate;
 
     @ToMany(joinProperties = {
             @JoinProperty(name = "dateCreateDialog",referencedName = "idDialog")
@@ -41,19 +41,19 @@ public class Dialog {
     @Generated(hash = 2040040024)
     private transient DaoSession daoSession;
 
-    public Dialog(Date dateCreateDialog) {
+    public Dialog(long dateCreateDialog) {
         this.dateCreateDialog = dateCreateDialog;
         this.lastEditDate = dateCreateDialog;
         this.lastMessage = "";
     }
 
-    public Dialog(Date dateCreateDialog,String lastMessage) {
+    public Dialog(long dateCreateDialog,String lastMessage) {
         this.dateCreateDialog = dateCreateDialog;
         this.lastEditDate = dateCreateDialog;
         this.lastMessage = lastMessage;
     }
 
-    public Dialog(Dialog dialog, String lastMessage, Date lastEditDate){
+    public Dialog(Dialog dialog, String lastMessage, long lastEditDate){
         this.id = dialog.getId();
         this.lastMessage = lastMessage;
         this.lastEditDate = lastEditDate;
@@ -131,11 +131,11 @@ public class Dialog {
         myDao = daoSession != null ? daoSession.getDialogDao() : null;
     }
 
-    public Date getLastEditDate() {
+    public long getLastEditDate() {
         return this.lastEditDate;
     }
 
-    public void setLastEditDate(Date lastEditDate) {
+    public void setLastEditDate(long lastEditDate) {
         this.lastEditDate = lastEditDate;
     }
 
@@ -147,6 +147,14 @@ public class Dialog {
         this.lastMessage = lastMessage;
     }
 
+    public long getDateCreateDialog() {
+        return this.dateCreateDialog;
+    }
+
+    public void setDateCreateDialog(long dateCreateDialog) {
+        this.dateCreateDialog = dateCreateDialog;
+    }
+
     public Long getId() {
         return this.id;
     }
@@ -155,17 +163,9 @@ public class Dialog {
         this.id = id;
     }
 
-    public Date getDateCreateDialog() {
-        return this.dateCreateDialog;
-    }
-
-    public void setDateCreateDialog(Date dateCreateDialog) {
-        this.dateCreateDialog = dateCreateDialog;
-    }
-
-    @Generated(hash = 491237896)
-    public Dialog(Long id, @NotNull Date dateCreateDialog, @NotNull String lastMessage,
-            @NotNull Date lastEditDate) {
+    @Generated(hash = 581793868)
+    public Dialog(Long id, long dateCreateDialog, @NotNull String lastMessage,
+            long lastEditDate) {
         this.id = id;
         this.dateCreateDialog = dateCreateDialog;
         this.lastMessage = lastMessage;
@@ -175,4 +175,5 @@ public class Dialog {
     @Generated(hash = 679371034)
     public Dialog() {
     }
+
 }

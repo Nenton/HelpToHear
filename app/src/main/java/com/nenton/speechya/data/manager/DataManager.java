@@ -60,6 +60,10 @@ public class DataManager {
         mDaoSession.insertOrReplace(message);
     }
 
+    public void createNewPhrase(StandartPhrase phrase){
+        mDaoSession.insertOrReplace(phrase);
+    }
+
     public List<Dialog> getDialogs() {
     return mDaoSession.queryBuilder(Dialog.class)
             .where(DialogDao.Properties.LastMessage.notEq(""))
@@ -70,7 +74,7 @@ public class DataManager {
 
     public List<Messages> getMessages() {
         return mDaoSession.queryBuilder(Messages.class)
-                .where(MessagesDao.Properties.IdDialog.eq(new Date(getPreferencesManager().getCreateDateDialog())))
+                .where(MessagesDao.Properties.IdDialog.eq((new Date(getPreferencesManager().getCreateDateDialog())).getTime()))
                 .orderAsc(MessagesDao.Properties.DateMessage)
                 .build()
                 .list();
@@ -79,7 +83,7 @@ public class DataManager {
 
     public List<StandartPhrase> getStandartPhrase() {
         return mDaoSession.queryBuilder(StandartPhrase.class)
-                .orderAsc(StandartPhraseDao.Properties.SortPosition)
+                .orderDesc(StandartPhraseDao.Properties.SortPosition)
                 .build()
                 .list();
     }
@@ -89,12 +93,19 @@ public class DataManager {
                 .where(DialogDao.Properties.DateCreateDialog.eq(mPreferencesManager.getCreateDateDialog()))
                 .build()
                 .unique();
-        mDaoSession.update(new Dialog(dialog,lastMessage,lastUpdate));
+        mDaoSession.update(new Dialog(dialog,lastMessage,lastUpdate.getTime()));
     }
 
     public void deleteDialog(long id) {
         mDaoSession.queryBuilder(Dialog.class)
                 .where(DialogDao.Properties.Id.eq(id))
+                .buildDelete()
+                .executeDeleteWithoutDetachingEntities();
+    }
+
+    public void deleteMessages(long idDialog) {
+        mDaoSession.queryBuilder(Messages.class)
+                .where(MessagesDao.Properties.IdDialog.eq(idDialog))
                 .buildDelete()
                 .executeDeleteWithoutDetachingEntities();
     }
@@ -120,16 +131,7 @@ public class DataManager {
 //                .unique();
 //    }
 
-    public void setStandartPhrase(List<StandartPhrase> standartPhrase){
-        List<StandartPhrase> unique = mDaoSession.queryBuilder(StandartPhrase.class)
-                .build()
-                .list();
-        if (unique.size() == 0) {
-            for (int i = 0; i < standartPhrase.size(); i++) {
-                mDaoSession.insertOrReplace(standartPhrase.get(i));
-            }
-        }
-    }
+
 
 //    public void deleteUser(String query) {
 //        try {

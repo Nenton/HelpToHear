@@ -45,8 +45,8 @@ public class StandartPhraseAdapter extends RecyclerView.Adapter<StandartPhraseAd
             public void onClick(View v) {
                 Date date = new Date();
                 DataManager.getInstanse().getPreferencesManager().setCreateDateDialog(date.getTime());
-                DataManager.getInstanse().createNewDialog(new Dialog(date,standartPhrase.getPhrase()));
-                DataManager.getInstanse().createNewMessage(new Messages(standartPhrase.getPhrase(),false,date,date));
+                DataManager.getInstanse().createNewDialog(new Dialog(date.getTime(),standartPhrase.getPhrase()));
+                DataManager.getInstanse().createNewMessage(new Messages(standartPhrase.getPhrase(),false,date.getTime(),date.getTime()));
                 Intent intent = new Intent(mContext, MainActivity.class);
                 mContext.startActivity(intent);
             }

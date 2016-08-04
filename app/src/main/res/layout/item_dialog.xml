@@ -23,7 +23,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:text="123"
             android:textColor="@color/grey_light"/>
 
         <TextView
@@ -32,16 +31,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/date_last_message_dialog"
-            android:text="123"
+            android:maxLines="3"
             android:textColor="@color/black"/>
-
-        <ImageView
-            android:id="@+id/dialog_delete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/ic_more_vert_black_24dp"/>
 
     </RelativeLayout>
 

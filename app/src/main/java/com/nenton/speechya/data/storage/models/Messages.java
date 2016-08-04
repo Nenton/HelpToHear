@@ -22,11 +22,11 @@ public class Messages {
     private Boolean whoWrite;
 
     @NotNull
-    private Date idDialog;
+    private long idDialog;
 
     @Unique
     @NotNull
-    private Date dateMessage;
+    private long dateMessage;
 
     /** Used for active entity operations. */
     @Generated(hash = 1949213313)
@@ -36,11 +36,25 @@ public class Messages {
     @Generated(hash = 2040040024)
     private transient DaoSession daoSession;
 
-    public Messages(String message, Boolean whoWrite, Date idDialog, Date dateMessage) {
+    public Messages(String message, Boolean whoWrite, long idDialog, long dateMessage) {
         this.message = message;
         this.whoWrite = whoWrite;
         this.idDialog = idDialog;
         this.dateMessage = dateMessage;
+    }
+
+    @Generated(hash = 231920587)
+    public Messages(Long id, @NotNull String message, @NotNull Boolean whoWrite,
+            long idDialog, long dateMessage) {
+        this.id = id;
+        this.message = message;
+        this.whoWrite = whoWrite;
+        this.idDialog = idDialog;
+        this.dateMessage = dateMessage;
+    }
+
+    @Generated(hash = 826815580)
+    public Messages() {
     }
 
     /**
@@ -86,11 +100,11 @@ public class Messages {
         myDao = daoSession != null ? daoSession.getMessagesDao() : null;
     }
 
-    public Date getDateMessage() {
+    public long getDateMessage() {
         return this.dateMessage;
     }
 
-    public void setDateMessage(Date dateMessage) {
+    public void setDateMessage(long dateMessage) {
         this.dateMessage = dateMessage;
     }
 
@@ -111,11 +125,11 @@ public class Messages {
         this.id = id;
     }
 
-    public void setIdDialog(Date idDialog) {
+    public void setIdDialog(long idDialog) {
         this.idDialog = idDialog;
     }
 
-    public Date getIdDialog() {
+    public long getIdDialog() {
         return this.idDialog;
     }
 
@@ -126,20 +140,7 @@ public class Messages {
     public void setWhoWrite(Boolean whoWrite) {
         this.whoWrite = whoWrite;
     }
-
-    @Generated(hash = 1691059731)
-    public Messages(Long id, @NotNull String message, @NotNull Boolean whoWrite,
-            @NotNull Date idDialog, @NotNull Date dateMessage) {
-        this.id = id;
-        this.message = message;
-        this.whoWrite = whoWrite;
-        this.idDialog = idDialog;
-        this.dateMessage = dateMessage;
-    }
-
-    @Generated(hash = 826815580)
-    public Messages() {
-    }
+    
 
 
 }

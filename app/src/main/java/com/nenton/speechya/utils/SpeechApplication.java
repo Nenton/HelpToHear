@@ -35,14 +35,6 @@ public class SpeechApplication extends Application{
         Database database = helper.getWritableDb();
         sDaoSession = new DaoMaster(database).newSession();
         Stetho.initializeWithDefaults(this);
-        setupStandartPhrase();
-    }
-
-    private void setupStandartPhrase() {
-        List<StandartPhrase> standartPhrases = new ArrayList<>();
-        standartPhrases.add(new StandartPhrase("Привет",new Date().getTime()));
-        standartPhrases.add(new StandartPhrase("Крикните",new Date().getTime()));
-        DataManager.getInstanse().setStandartPhrase(standartPhrases);
     }
 
     /**

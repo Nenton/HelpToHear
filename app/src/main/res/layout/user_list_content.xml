@@ -1,52 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    >
+    android:paddingLeft="@dimen/spacing_small_8"
+    android:paddingRight="@dimen/spacing_small_8">
+
     <android.support.v7.widget.RecyclerView
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/messages_recycle"
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/spacing_large_56"
-        android:orientation="vertical"
-        android:paddingLeft="@dimen/spacing_small_8"
-        android:paddingRight="@dimen/spacing_small_8"
-        android:layout_alignParentTop="true"
-        android:layout_above="@+id/volume_power"/>
+        android:layout_above="@+id/write_bar"
+        android:orientation="vertical"/>
 
-    <LinearLayout
+    <fr.castorflex.android.smoothprogressbar.SmoothProgressBar
+        android:id="@+id/mirror_progressbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/write_bar"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:id="@+id/volume_power">
-
-        <ProgressBar
-            android:id="@+id/voice_power_bar"
-            style="@style/VoiceVolumeStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:max="100"
-            android:progress="0"
-            />
-        <Button
-            android:id="@+id/button"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:text="Старт"/>
-
-    </LinearLayout>
-
+        android:layout_marginTop="@dimen/spacing_large_56"
+        android:indeterminate="false"
+        app:spb_color="@color/color_accent"
+        app:spb_colors="@array/colors_progressbar"
+        app:spb_interpolator="spb_interpolator_decelerate"
+        app:spb_mirror_mode="true"
+        app:spb_progressiveStart_activated="true"
+        app:spb_progressiveStart_speed="1.5"
+        app:spb_progressiveStop_speed="3.4"
+        app:spb_reversed="true"
+        app:spb_sections_count="5"
+        app:spb_speed="2.0"
+        app:spb_stroke_separator_length="20dp"
+        app:spb_stroke_width="3dp"/>
 
     <RelativeLayout
         android:id="@+id/write_bar"

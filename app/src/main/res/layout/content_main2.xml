@@ -7,32 +7,59 @@
     android:layout_height="match_parent"
     android:paddingLeft="@dimen/spacing_small_8"
     android:paddingRight="@dimen/spacing_small_8"
-    android:paddingTop="@dimen/spacing_small_8"
-    android:paddingBottom="@dimen/spacing_small_8"
-    android:layout_marginBottom="56dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".ui.activities.Main2Activity"
     tools:showIn="@layout/app_bar_main2">
 
-    <android.support.v7.widget.RecyclerView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/standart_phrase"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingLeft="@dimen/spacing_small_8"
-        android:paddingRight="@dimen/spacing_small_8"
-        android:layout_alignParentTop="true"/>
+        android:scrollbars="none"
+        android:scrollY="@dimen/spacing_small_8">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/spacing_small_8"
+                android:text="Готовые фразы"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grey_light"
+                android:layout_marginLeft="@dimen/spacing_small_8"
+                android:layout_marginRight="@dimen/spacing_small_8"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/standart_phrase"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/spacing_small_8"
+                android:paddingRight="@dimen/spacing_small_8"
+                android:layout_marginBottom="64dp"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
 
     <Button
         android:id="@+id/new_dialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/spacing_small_8"
         android:background="@drawable/button_rect"
         android:paddingLeft="@dimen/spacing_small_8"
         android:paddingRight="@dimen/spacing_small_8"
         android:text="Новый диалог"
-        android:textColor="@color/white"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"/>
+        android:textColor="@color/white"/>
+
 </RelativeLayout>

@@ -16,16 +16,20 @@ import com.nenton.speechya.data.storage.models.Dialog;
 import com.nenton.speechya.data.storage.models.Messages;
 import com.nenton.speechya.ui.activities.MainActivity;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class DialogsAdapter extends RecyclerView.Adapter<DialogsAdapter.DialogsViewHolder> {
 
     protected Context mContext;
     private List<Dialog> mPhrases;
+    private SimpleDateFormat mFormat;
 
     public DialogsAdapter(List<Dialog> phrases) {
         mPhrases = phrases;
+        mFormat = new SimpleDateFormat("d MMMMM, yyyy");
     }
 
     @Override
@@ -38,12 +42,13 @@ public class DialogsAdapter extends RecyclerView.Adapter<DialogsAdapter.DialogsV
     @Override
     public void onBindViewHolder(DialogsViewHolder holder, int position) {
         final Dialog dialog = mPhrases.get(position);
-        holder.mTextDate.setText(dialog.getLastEditDate().toString());
+        String format = mFormat.format(new Date(dialog.getLastEditDate()));
+        holder.mTextDate.setText(format);
         holder.mTextLastMessage.setText(dialog.getLastMessage());
         holder.mCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Date date = dialog.getDateCreateDialog();
+                Date date = new Date(dialog.getDateCreateDialog());
                 DataManager.getInstanse().getPreferencesManager().setCreateDateDialog(date.getTime());
                 Intent intent = new Intent(mContext, MainActivity.class);
                 mContext.startActivity(intent);

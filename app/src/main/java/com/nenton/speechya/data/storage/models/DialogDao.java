@@ -23,9 +23,9 @@ public class DialogDao extends AbstractDao<Dialog, Long> {
     */
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property DateCreateDialog = new Property(1, java.util.Date.class, "dateCreateDialog", false, "DATE_CREATE_DIALOG");
+        public final static Property DateCreateDialog = new Property(1, long.class, "dateCreateDialog", false, "DATE_CREATE_DIALOG");
         public final static Property LastMessage = new Property(2, String.class, "lastMessage", false, "LAST_MESSAGE");
-        public final static Property LastEditDate = new Property(3, java.util.Date.class, "lastEditDate", false, "LAST_EDIT_DATE");
+        public final static Property LastEditDate = new Property(3, long.class, "lastEditDate", false, "LAST_EDIT_DATE");
     };
 
     private DaoSession daoSession;
@@ -64,9 +64,9 @@ public class DialogDao extends AbstractDao<Dialog, Long> {
         if (id != null) {
             stmt.bindLong(1, id);
         }
-        stmt.bindLong(2, entity.getDateCreateDialog().getTime());
+        stmt.bindLong(2, entity.getDateCreateDialog());
         stmt.bindString(3, entity.getLastMessage());
-        stmt.bindLong(4, entity.getLastEditDate().getTime());
+        stmt.bindLong(4, entity.getLastEditDate());
     }
 
     @Override
@@ -77,9 +77,9 @@ public class DialogDao extends AbstractDao<Dialog, Long> {
         if (id != null) {
             stmt.bindLong(1, id);
         }
-        stmt.bindLong(2, entity.getDateCreateDialog().getTime());
+        stmt.bindLong(2, entity.getDateCreateDialog());
         stmt.bindString(3, entity.getLastMessage());
-        stmt.bindLong(4, entity.getLastEditDate().getTime());
+        stmt.bindLong(4, entity.getLastEditDate());
     }
 
     @Override
@@ -97,9 +97,9 @@ public class DialogDao extends AbstractDao<Dialog, Long> {
     public Dialog readEntity(Cursor cursor, int offset) {
         Dialog entity = new Dialog( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
-            new java.util.Date(cursor.getLong(offset + 1)), // dateCreateDialog
+            cursor.getLong(offset + 1), // dateCreateDialog
             cursor.getString(offset + 2), // lastMessage
-            new java.util.Date(cursor.getLong(offset + 3)) // lastEditDate
+            cursor.getLong(offset + 3) // lastEditDate
         );
         return entity;
     }
@@ -107,9 +107,9 @@ public class DialogDao extends AbstractDao<Dialog, Long> {
     @Override
     public void readEntity(Cursor cursor, Dialog entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
-        entity.setDateCreateDialog(new java.util.Date(cursor.getLong(offset + 1)));
+        entity.setDateCreateDialog(cursor.getLong(offset + 1));
         entity.setLastMessage(cursor.getString(offset + 2));
-        entity.setLastEditDate(new java.util.Date(cursor.getLong(offset + 3)));
+        entity.setLastEditDate(cursor.getLong(offset + 3));
      }
     
     @Override

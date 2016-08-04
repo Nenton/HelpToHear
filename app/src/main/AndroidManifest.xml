@@ -9,23 +9,27 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".ui.activities.MainActivity"
+            android:label="Диалог"
             android:parentActivityName=".ui.activities.Main2Activity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.activities.Main2Activity"/>
         </activity>
+
         <activity
             android:name=".ui.activities.Main2Activity"
-            android:label="@string/title_activity_main2"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activities.DialogsActivity">
+
+        <activity android:name=".ui.activities.DialogsActivity"
+                  android:label="История диалогов"
             android:parentActivityName=".ui.activities.Main2Activity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

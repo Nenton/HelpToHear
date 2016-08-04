@@ -40,7 +40,7 @@ public class DialogsActivity extends AppCompatActivity {
     }
 
     private void setupSwipe() {
-        ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+        ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
 
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
@@ -56,6 +56,7 @@ public class DialogsActivity extends AppCompatActivity {
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
                 Dialog dialog = mDialogs.get(viewHolder.getAdapterPosition());
                 mDataManager.deleteDialog(dialog.getId());
+                mDataManager.deleteMessages(dialog.getDateCreateDialog());
                 int position = viewHolder.getAdapterPosition();
                 mDialogs.remove(position);
                 dialogsAdapter.notifyDataSetChanged();

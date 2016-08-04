@@ -4,15 +4,15 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/history_dialogs"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/message_text"
             android:title="История диалогов"/>
         <item
             android:id="@+id/settings"
-            android:icon="@drawable/ic_menu_share"
+            android:icon="@drawable/settings"
             android:title="Настройки"/>
         <item
             android:id="@+id/exit"
-            android:icon="@drawable/ic_menu_send"
+            android:icon="@drawable/exit_to_app"
             android:title="Выйти"/>
     </group>
 

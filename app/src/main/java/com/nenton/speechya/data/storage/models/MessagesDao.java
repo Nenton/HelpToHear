@@ -28,8 +28,8 @@ public class MessagesDao extends AbstractDao<Messages, Long> {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property Message = new Property(1, String.class, "message", false, "MESSAGE");
         public final static Property WhoWrite = new Property(2, boolean.class, "whoWrite", false, "WHO_WRITE");
-        public final static Property IdDialog = new Property(3, java.util.Date.class, "idDialog", false, "ID_DIALOG");
-        public final static Property DateMessage = new Property(4, java.util.Date.class, "dateMessage", false, "DATE_MESSAGE");
+        public final static Property IdDialog = new Property(3, long.class, "idDialog", false, "ID_DIALOG");
+        public final static Property DateMessage = new Property(4, long.class, "dateMessage", false, "DATE_MESSAGE");
     };
 
     private DaoSession daoSession;
@@ -72,8 +72,8 @@ public class MessagesDao extends AbstractDao<Messages, Long> {
         }
         stmt.bindString(2, entity.getMessage());
         stmt.bindLong(3, entity.getWhoWrite() ? 1L: 0L);
-        stmt.bindLong(4, entity.getIdDialog().getTime());
-        stmt.bindLong(5, entity.getDateMessage().getTime());
+        stmt.bindLong(4, entity.getIdDialog());
+        stmt.bindLong(5, entity.getDateMessage());
     }
 
     @Override
@@ -86,8 +86,8 @@ public class MessagesDao extends AbstractDao<Messages, Long> {
         }
         stmt.bindString(2, entity.getMessage());
         stmt.bindLong(3, entity.getWhoWrite() ? 1L: 0L);
-        stmt.bindLong(4, entity.getIdDialog().getTime());
-        stmt.bindLong(5, entity.getDateMessage().getTime());
+        stmt.bindLong(4, entity.getIdDialog());
+        stmt.bindLong(5, entity.getDateMessage());
     }
 
     @Override
@@ -107,8 +107,8 @@ public class MessagesDao extends AbstractDao<Messages, Long> {
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.getString(offset + 1), // message
             cursor.getShort(offset + 2) != 0, // whoWrite
-            new java.util.Date(cursor.getLong(offset + 3)), // idDialog
-            new java.util.Date(cursor.getLong(offset + 4)) // dateMessage
+            cursor.getLong(offset + 3), // idDialog
+            cursor.getLong(offset + 4) // dateMessage
         );
         return entity;
     }
@@ -118,8 +118,8 @@ public class MessagesDao extends AbstractDao<Messages, Long> {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setMessage(cursor.getString(offset + 1));
         entity.setWhoWrite(cursor.getShort(offset + 2) != 0);
-        entity.setIdDialog(new java.util.Date(cursor.getLong(offset + 3)));
-        entity.setDateMessage(new java.util.Date(cursor.getLong(offset + 4)));
+        entity.setIdDialog(cursor.getLong(offset + 3));
+        entity.setDateMessage(cursor.getLong(offset + 4));
      }
     
     @Override
@@ -143,7 +143,7 @@ public class MessagesDao extends AbstractDao<Messages, Long> {
     }
     
     /** Internal query to resolve the "mMessages" to-many relationship of Dialog. */
-    public List<Messages> _queryDialog_MMessages(java.util.Date idDialog) {
+    public List<Messages> _queryDialog_MMessages(long idDialog) {
         synchronized (this) {
             if (dialog_MMessagesQuery == null) {
                 QueryBuilder<Messages> queryBuilder = queryBuilder();
