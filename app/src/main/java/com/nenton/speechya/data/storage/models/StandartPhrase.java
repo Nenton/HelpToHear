@@ -26,11 +26,21 @@ public class StandartPhrase {
     @Generated(hash = 2040040024)
     private transient DaoSession daoSession;
 
+    /**
+     * Create phrase
+     * @param phrase message phrase
+     * @param sortPosition position in list
+     */
     public StandartPhrase(String phrase, Long sortPosition) {
         this.phrase = phrase;
         this.sortPosition = sortPosition;
     }
 
+    /**
+     * Update position in list
+     * @param standartPhrase current phrase
+     * @param sortPosition updated position in list
+     */
     public StandartPhrase(StandartPhrase standartPhrase,Long sortPosition){
         this.mId = standartPhrase.getMId();
         this.phrase = standartPhrase.getPhrase();

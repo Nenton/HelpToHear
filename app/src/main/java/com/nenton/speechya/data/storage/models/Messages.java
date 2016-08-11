@@ -36,6 +36,13 @@ public class Messages {
     @Generated(hash = 2040040024)
     private transient DaoSession daoSession;
 
+    /**
+     * Create message
+     * @param message current message
+     * @param whoWrite author message
+     * @param idDialog id dialog current message
+     * @param dateMessage date create message
+     */
     public Messages(String message, Boolean whoWrite, long idDialog, long dateMessage) {
         this.message = message;
         this.whoWrite = whoWrite;

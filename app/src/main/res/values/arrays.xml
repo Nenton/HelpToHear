@@ -6,4 +6,15 @@
         <item>@color/color_primary</item>
         <item>@color/color_accent</item>
     </array>
+    <array name="spinner_language">
+        <item>Русский</item>
+        <item>Английский</item>
+    </array>
+    <array name="spinner_voice">
+        <item>Элис</item>
+        <item>Ермил</item>
+        <item>Джейн</item>
+        <item>Омах</item>
+        <item>Захар</item>
+    </array>
 </resources>

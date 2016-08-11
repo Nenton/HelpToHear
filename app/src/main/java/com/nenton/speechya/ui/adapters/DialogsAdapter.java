@@ -7,31 +7,35 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nenton.speechya.R;
 import com.nenton.speechya.data.manager.DataManager;
 import com.nenton.speechya.data.storage.models.Dialog;
-import com.nenton.speechya.data.storage.models.Messages;
 import com.nenton.speechya.ui.activities.MainActivity;
+import com.nenton.speechya.utils.ConstantManager;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class DialogsAdapter extends RecyclerView.Adapter<DialogsAdapter.DialogsViewHolder> {
 
-    protected Context mContext;
+    private Context mContext;
     private List<Dialog> mPhrases;
-    private SimpleDateFormat mFormat;
 
+    /**
+     * Create dialog adapter
+     * @param phrases phrases for adapter
+     */
     public DialogsAdapter(List<Dialog> phrases) {
         mPhrases = phrases;
-        mFormat = new SimpleDateFormat("d MMMMM, yyyy");
     }
 
+    /**
+     * Create view
+     * @return create view dialog
+     */
     @Override
     public DialogsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         mContext = parent.getContext();
@@ -39,12 +43,20 @@ public class DialogsAdapter extends RecyclerView.Adapter<DialogsAdapter.DialogsV
         return new DialogsViewHolder(convertView);
     }
 
+    /**
+     * Bind item view on current position
+     * @param holder view item
+     * @param position position item is list
+     */
     @Override
     public void onBindViewHolder(DialogsViewHolder holder, int position) {
+
         final Dialog dialog = mPhrases.get(position);
-        String format = mFormat.format(new Date(dialog.getLastEditDate()));
+
+        String format = (new SimpleDateFormat(ConstantManager.STRING_FORMAT_DATE)).format(new Date(dialog.getLastEditDate()));
         holder.mTextDate.setText(format);
         holder.mTextLastMessage.setText(dialog.getLastMessage());
+
         holder.mCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,20 +66,30 @@ public class DialogsAdapter extends RecyclerView.Adapter<DialogsAdapter.DialogsV
                 mContext.startActivity(intent);
             }
         });
-
     }
 
+    /**
+     * Get size list
+     * @return size list
+     */
     @Override
     public int getItemCount() {
         return mPhrases.size();
     }
 
+    /**
+     * Holder view dialog
+     */
     public static class DialogsViewHolder extends RecyclerView.ViewHolder {
 
-        protected TextView mTextDate;
-        protected TextView mTextLastMessage;
-        protected CardView mCardView;
+        private TextView mTextDate;
+        private TextView mTextLastMessage;
+        private CardView mCardView;
 
+        /**
+         * Initialization all view on item
+         * @param itemView item in list
+         */
         public DialogsViewHolder(View itemView) {
             super(itemView);
             mTextLastMessage = (TextView) itemView.findViewById(R.id.last_message_dialog);

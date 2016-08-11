@@ -10,6 +10,7 @@ import com.nenton.speechya.data.manager.DataManager;
 import com.nenton.speechya.data.storage.models.DaoMaster;
 import com.nenton.speechya.data.storage.models.DaoSession;
 import com.nenton.speechya.data.storage.models.StandartPhrase;
+import com.redmadrobot.chronos.ChronosConnector;
 
 import org.greenrobot.greendao.database.Database;
 
@@ -20,8 +21,11 @@ import java.util.List;
 public class SpeechApplication extends Application{
 
     private static Context sContext;
-    public static SharedPreferences sSharedPreferences;
+    private static SharedPreferences sSharedPreferences;
     private static DaoSession sDaoSession;
+    private static ChronosConnector sChronosConnector;
+
+
 
     /**
      * Create shared preferences
@@ -35,6 +39,7 @@ public class SpeechApplication extends Application{
         Database database = helper.getWritableDb();
         sDaoSession = new DaoMaster(database).newSession();
         Stetho.initializeWithDefaults(this);
+        sChronosConnector = new ChronosConnector();
     }
 
     /**
@@ -42,6 +47,10 @@ public class SpeechApplication extends Application{
      */
     public static SharedPreferences getSharedPreferences() {
         return sSharedPreferences;
+    }
+
+    public static ChronosConnector getChronosConnector() {
+        return sChronosConnector;
     }
 
     public static Context getContext() {

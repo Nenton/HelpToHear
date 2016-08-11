@@ -10,6 +10,7 @@ import com.nenton.speechya.data.storage.models.MessagesDao;
 import com.nenton.speechya.data.storage.models.StandartPhrase;
 import com.nenton.speechya.data.storage.models.StandartPhraseDao;
 import com.nenton.speechya.utils.SpeechApplication;
+import com.redmadrobot.chronos.ChronosConnector;
 
 import java.util.Date;
 import java.util.List;
@@ -20,11 +21,20 @@ public class DataManager {
     private Context mContext;
     private PreferencesManager mPreferencesManager;
     private DaoSession mDaoSession;
+    private ChronosConnector mChronosConnector;
 
+    public ChronosConnector getChronosConnector() {
+        return mChronosConnector;
+    }
+
+    /**
+     * Create singleton
+     */
     public DataManager() {
         this.mPreferencesManager = new PreferencesManager();
         this.mContext = SpeechApplication.getContext();
         this.mDaoSession = SpeechApplication.getDaoSession();
+        this.mChronosConnector = SpeechApplication.getChronosConnector();
     }
 
     /**
@@ -44,26 +54,47 @@ public class DataManager {
         return mPreferencesManager;
     }
 
+    /**
+     * @return Current context
+     */
     public Context getContext() {
         return mContext;
     }
 
+    /**
+     * @return Current dao session
+     */
     public DaoSession getDaoSession() {
         return mDaoSession;
     }
 
+    /**
+     * Create new dialog
+     * @param dialog new dialog
+     */
     public void createNewDialog(Dialog dialog){
         mDaoSession.insertOrReplace(dialog);
     }
 
+    /**
+     * Create new message
+     * @param message new message
+     */
     public void createNewMessage(Messages message){
         mDaoSession.insertOrReplace(message);
     }
 
+    /**
+     * Create new phrase
+     * @param phrase new phrase
+     */
     public void createNewPhrase(StandartPhrase phrase){
         mDaoSession.insertOrReplace(phrase);
     }
 
+    /**
+     * @return all dialogs
+     */
     public List<Dialog> getDialogs() {
     return mDaoSession.queryBuilder(Dialog.class)
             .where(DialogDao.Properties.LastMessage.notEq(""))
@@ -72,6 +103,9 @@ public class DataManager {
             .list();
     }
 
+    /**
+     * @return all message on current dialog
+     */
     public List<Messages> getMessages() {
         return mDaoSession.queryBuilder(Messages.class)
                 .where(MessagesDao.Properties.IdDialog.eq((new Date(getPreferencesManager().getCreateDateDialog())).getTime()))
@@ -80,7 +114,9 @@ public class DataManager {
                 .list();
     }
 
-
+    /**
+     * @return all phrase
+     */
     public List<StandartPhrase> getStandartPhrase() {
         return mDaoSession.queryBuilder(StandartPhrase.class)
                 .orderDesc(StandartPhraseDao.Properties.SortPosition)
@@ -88,6 +124,10 @@ public class DataManager {
                 .list();
     }
 
+    /**
+     * @param lastMessage last message in dialog
+     * @param lastUpdate date last message in dialog
+     */
     public void updateDialog (String lastMessage, Date lastUpdate){
         Dialog dialog =  mDaoSession.queryBuilder(Dialog.class)
                 .where(DialogDao.Properties.DateCreateDialog.eq(mPreferencesManager.getCreateDateDialog()))
@@ -96,27 +136,10 @@ public class DataManager {
         mDaoSession.update(new Dialog(dialog,lastMessage,lastUpdate.getTime()));
     }
 
-    public void deleteDialog(long id) {
-        mDaoSession.queryBuilder(Dialog.class)
-                .where(DialogDao.Properties.Id.eq(id))
-                .buildDelete()
-                .executeDeleteWithoutDetachingEntities();
-    }
-
-    public void deleteMessages(long idDialog) {
-        mDaoSession.queryBuilder(Messages.class)
-                .where(MessagesDao.Properties.IdDialog.eq(idDialog))
-                .buildDelete()
-                .executeDeleteWithoutDetachingEntities();
-    }
-
-    public void deleteStandartPhrase(long mId) {
-        mDaoSession.queryBuilder(StandartPhrase.class)
-                .where(StandartPhraseDao.Properties.MId.eq(mId))
-                .buildDelete()
-                .executeDeleteWithoutDetachingEntities();
-    }
-
+    /**
+     * @param id id phrase
+     * @param sortPosition position in list
+     */
     public void updatePhrase(long id,long sortPosition){
         StandartPhrase standartPhrase = mDaoSession.queryBuilder(StandartPhrase.class)
                 .where(StandartPhraseDao.Properties.MId.eq(id))
@@ -125,26 +148,56 @@ public class DataManager {
         mDaoSession.update(new StandartPhrase(standartPhrase,sortPosition));
     }
 
-//    public StandartPhrase isEmptyStandartPhrase(){
-//        return mDaoSession.queryBuilder(StandartPhrase.class)
-//                .build()
-//                .unique();
-//    }
+    /**
+     * @param id id dialog in BD
+     */
+    public void deleteDialog(long id) {
+        mDaoSession.queryBuilder(Dialog.class)
+                .where(DialogDao.Properties.Id.eq(id))
+                .buildDelete()
+                .executeDeleteWithoutDetachingEntities();
+    }
 
+    /**
+     * Delete empty dialogs
+     */
+    public void deleteDialogs() {
+        mDaoSession.queryBuilder(Dialog.class)
+                .where(DialogDao.Properties.LastMessage.eq(""))
+                .buildDelete()
+                .executeDeleteWithoutDetachingEntities();
+    }
 
+    /**
+     * Delete all message on current id dialog
+     * @param idDialog id dialog
+     */
+    public void deleteMessages(long idDialog) {
+        mDaoSession.queryBuilder(Messages.class)
+                .where(MessagesDao.Properties.IdDialog.eq(idDialog))
+                .buildDelete()
+                .executeDeleteWithoutDetachingEntities();
+    }
 
-//    public void deleteUser(String query) {
-//        try {
-//            mDaoSession.queryBuilder(User.class)
-//                    .where(UserDao.Properties.RemoteId.eq(query))
-//                    .buildDelete()
-//                    .executeDeleteWithoutDetachingEntities();
-//            mDaoSession.queryBuilder(Repositories.class)
-//                    .where(RepositoriesDao.Properties.UserRemoteId.eq(query))
-//                    .buildDelete()
-//                    .executeDeleteWithoutDetachingEntities();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
+    /**
+     * Delete message
+     * @param dateMessage date create message
+     */
+    public void deleteMessage(long dateMessage) {
+        mDaoSession.queryBuilder(Messages.class)
+                .where(MessagesDao.Properties.DateMessage.eq(dateMessage))
+                .buildDelete()
+                .executeDeleteWithoutDetachingEntities();
+    }
+
+    /**
+     * Delete phrase
+     * @param mId id phrase
+     */
+    public void deleteStandartPhrase(long mId) {
+        mDaoSession.queryBuilder(StandartPhrase.class)
+                .where(StandartPhraseDao.Properties.MId.eq(mId))
+                .buildDelete()
+                .executeDeleteWithoutDetachingEntities();
+    }
 }

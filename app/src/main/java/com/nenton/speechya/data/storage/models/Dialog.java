@@ -28,8 +28,7 @@ public class Dialog {
     @NotNull
     private long lastEditDate;
 
-    @ToMany(joinProperties = {
-            @JoinProperty(name = "dateCreateDialog",referencedName = "idDialog")
+    @ToMany(joinProperties = {@JoinProperty(name = "dateCreateDialog",referencedName = "idDialog")
     })
     private List<Messages> mMessages;
 
@@ -41,18 +40,33 @@ public class Dialog {
     @Generated(hash = 2040040024)
     private transient DaoSession daoSession;
 
+    /**
+     * For create dialog
+     * @param dateCreateDialog date create dialog
+     */
     public Dialog(long dateCreateDialog) {
         this.dateCreateDialog = dateCreateDialog;
         this.lastEditDate = dateCreateDialog;
         this.lastMessage = "";
     }
 
+    /**
+     * For create dialog from phrase
+     * @param dateCreateDialog date create dialog
+     * @param lastMessage message phrase
+     */
     public Dialog(long dateCreateDialog,String lastMessage) {
         this.dateCreateDialog = dateCreateDialog;
         this.lastEditDate = dateCreateDialog;
         this.lastMessage = lastMessage;
     }
 
+    /**
+     * For update dialog
+     * @param dialog current dialog
+     * @param lastMessage update last message in dialog
+     * @param lastEditDate update date last edit dialog
+     */
     public Dialog(Dialog dialog, String lastMessage, long lastEditDate){
         this.id = dialog.getId();
         this.lastMessage = lastMessage;
