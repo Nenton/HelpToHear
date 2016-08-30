@@ -44,7 +44,6 @@ import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
 public class MainActivity extends AppCompatActivity implements RecognizerListener {
 
-//    private static final String API_KEY = "9f298c59-147e-411d-aa6a-035979a134bf";
     public static final int REQUEST_PERMISSION_CODE = 1;
 
     private RecyclerView mRecyclerView;
@@ -87,6 +86,15 @@ public class MainActivity extends AppCompatActivity implements RecognizerListene
         setupToolbar();
         setupButton();
         setupRecycle();
+        if (savedInstanceState != null){
+            mBoolean = savedInstanceState.getBoolean(ConstantManager.STRING_MODE_RECOGNIZER);
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putBoolean(ConstantManager.STRING_MODE_RECOGNIZER,mBoolean);
+        super.onSaveInstanceState(outState);
     }
 
     /**
@@ -95,12 +103,14 @@ public class MainActivity extends AppCompatActivity implements RecognizerListene
     @Override
     protected void onStart() {
         super.onStart();
-        if (ContextCompat.checkSelfPermission(MainActivity.this, RECORD_AUDIO) != PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{RECORD_AUDIO}, REQUEST_PERMISSION_CODE);
-        } else {
-            resetRecognizer();
-            recognizer = Recognizer.create(mDataManager.getPreferencesManager().getLanguageRecognizer(), Recognizer.Model.NOTES, MainActivity.this);
-            recognizer.start();
+        if (mBoolean) {
+            if (ContextCompat.checkSelfPermission(MainActivity.this, RECORD_AUDIO) != PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{RECORD_AUDIO}, REQUEST_PERMISSION_CODE);
+            } else {
+                resetRecognizer();
+                recognizer = Recognizer.create(mDataManager.getPreferencesManager().getLanguageRecognizer(), Recognizer.Model.NOTES, MainActivity.this);
+                recognizer.start();
+            }
         }
     }
 
@@ -178,8 +188,6 @@ public class MainActivity extends AppCompatActivity implements RecognizerListene
                     Messages messages = new Messages(mFieldForSendMessage.getText().toString(), false, mDateCreateDialog.getTime(), currentDate.getTime());
                     mChronosConnector.runOperation(new ChronosCreate(messages),true);
                     mChronosConnector.runOperation(new ChronosUpdateDialog(mFieldForSendMessage.getText().toString(),currentDate),true);
-//                    mDataManager.createNewMessage(messages);
-//                    mDataManager.updateDialog(mFieldForSendMessage.getText().toString(), currentDate);
                     mMessages.add(messages);
                     mMessageAdapter.notifyDataSetChanged();
                     mRecyclerView.scrollToPosition(mMessages.size() - 1);
@@ -293,9 +301,7 @@ public class MainActivity extends AppCompatActivity implements RecognizerListene
             Date currentDate = new Date();
             Messages messages = new Messages(recognition.getBestResultText(), true, mDateCreateDialog.getTime(), currentDate.getTime());
             mChronosConnector.runOperation(new ChronosCreate(messages),true);
-//            mDataManager.createNewMessage(messages);
             mChronosConnector.runOperation(new ChronosUpdateDialog(recognition.getBestResultText(), currentDate),true);
-//            mDataManager.updateDialog(recognition.getBestResultText(), currentDate);
             mMessages.add(messages);
             mMessageAdapter.notifyDataSetChanged();
             mRecyclerView.scrollToPosition(mMessages.size() - 1);
@@ -317,17 +323,70 @@ public class MainActivity extends AppCompatActivity implements RecognizerListene
                 createAndStartRecognizer();
                 showToast(ConstantManager.STRING_SPEECH_NOT_DETECTED);
                 break;
+            case Error.ERROR_API_KEY:
+                showToast("Ошибка API ключа, введите корректный API ключ в настройках");
+                endRecognize();
+                break;
+            case Error.ERROR_AUDIO:
+                showToast("Ошибка записи звука.");
+                break;
+            case Error.ERROR_AUDIO_PLAYER:
+                showToast("Ошибка воспроизведения звука.");
+                break;
+            case Error.ERROR_AUDIO_PERMISSIONS:
+                showToast("У приложения нет прав для использования микрофона.");
+                endRecognize();
+                break;
+            case Error.ERROR_AUDIO_INTERRUPTED:
+                showToast("Работа со звуком была прервана.");
+                endRecognize();
+                break;
+            case Error.ERROR_ENCODING:
+                showToast("Ошибка кодирования звука.");
+                break;
+            case Error.ERROR_NETWORK:
+                showToast("Ошибка сети.");
+                endRecognize();
+                break;
+            case Error.ERROR_SERVER:
+                showToast("Ошибка сервера.");
+                endRecognize();
+                break;
+            case Error.ERROR_NO_TEXT_TO_SYNTHESIZE:
+                showToast("Ошибка преобразования текста в речь.");
+                break;
+            case Error.ERROR_NOT_AVAILABLE:
+                showToast("Сервис недоступен.");
+                endRecognize();
+                break;
+            case Error.ERROR_BUSY:
+                showToast("Предыдущая операция не завершена.");
+                break;
+            case Error.ERROR_UNKNOWN:
+                showToast("Неизвестная ошибка.");
+                break;
+            case Error.ERROR_LANGUAGE_NOT_SUPPORTED_FOR_MODEL:
+                showToast("Язык не поддерживается для выбранной модели.");
+                break;
             default:
-                mBoolean = false;
-                if (menuToolbar != null) {
-                    onCreateOptionsMenu(menuToolbar);
-                }
                 showToast("Error occurred " + error.getString());
+                endRecognize();
                 break;
         }
-// TODO: 03.08.2016 обработка ошибок
     }
 
+    private void endRecognize(){
+        mBoolean = false;
+        if (menuToolbar != null) {
+            onCreateOptionsMenu(menuToolbar);
+        }
+    }
+
+    /**
+     * Create options menu
+     * @param menu menu
+     * @return boolean
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         menu.clear();

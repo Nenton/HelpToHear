@@ -1,5 +1,7 @@
 package com.nenton.speechya.ui.activities;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -9,9 +11,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.nenton.speechya.R;
 import com.nenton.speechya.data.manager.DataManager;
+import com.nenton.speechya.utils.Config;
+import com.nenton.speechya.utils.ConstantManager;
 
 import ru.yandex.speechkit.Recognizer;
 import ru.yandex.speechkit.Vocalizer;
@@ -23,6 +29,8 @@ public class SettingsActivity extends AppCompatActivity {
     private AppCompatSpinner mSpinnerVoice;
     private TextInputLayout mTextInputLayout;
     private Button mButton;
+    private ImageView mImageView;
+    private EditText mEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +41,39 @@ public class SettingsActivity extends AppCompatActivity {
         mSpinnerVoice = (AppCompatSpinner)findViewById(R.id.spinner_voice);
         mTextInputLayout = (TextInputLayout)findViewById(R.id.edit_api_key_field);
         mButton = (Button)findViewById(R.id.edit_api_key_button);
+        mImageView = (ImageView)findViewById(R.id.information_api);
+        mEditText = (EditText)findViewById(R.id.edit_txt_api_key);
         setupToolbar();
         setupData();
+        setupInfo();
+        if (savedInstanceState != null){
+            mEditText.setText(savedInstanceState.getString(ConstantManager.STRING_EDIT_API_SETTINGS));
+        }
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putString(ConstantManager.STRING_EDIT_API_SETTINGS,mEditText.getText().toString());
+        super.onSaveInstanceState(outState);
+    }
+
+    /**
+     * Setup info go to site developer account
+     */
+    private void setupInfo() {
+        mImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri uri = Uri.parse(Config.YANDEX_API_DEVELOPER);
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
+    }
+
+    /**
+     * Setup data
+     */
     private void setupData() {
 
         mButton.setOnClickListener(new View.OnClickListener() {
@@ -122,6 +159,9 @@ public class SettingsActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Setup toolbar
+     */
     private void setupToolbar() {
         setSupportActionBar(mToolbar);
         ActionBar actionBar = getSupportActionBar();

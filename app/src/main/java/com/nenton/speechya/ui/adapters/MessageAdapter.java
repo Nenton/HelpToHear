@@ -51,7 +51,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
      * @param fragmentManager fragment manager
      */
     public MessageAdapter(List<Messages> messages, MainActivity mainActivity, FragmentManager fragmentManager) {
-
         mMessages = messages;
         mFragmentManager = fragmentManager;
         mMainActivity = mainActivity;
@@ -63,7 +62,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
      */
     @Override
     public MessageViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
         mContext = parent.getContext();
         View convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_message, parent, false);
         return new MessageViewHolder(convertView);
@@ -76,7 +74,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
      */
     @Override
     public void onBindViewHolder(final MessageViewHolder holder, final int position) {
-
         final Messages message = mMessages.get(position);
         holder.mMessage.setText(message.getMessage());
         setupClick(holder, message, position);
@@ -129,20 +126,20 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         if (message.getWhoWrite()) {
             holder.mSay.setVisibility(View.GONE);
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            layoutParams.setMargins((int) mContext.getResources().getDimension(R.dimen.spacing_small_8)
+            layoutParams.setMargins((int) mContext.getResources().getDimension(R.dimen.spacing_null)
                     , (int) mContext.getResources().getDimension(R.dimen.spacing_small_8)
-                    , (int) mContext.getResources().getDimension(R.dimen.spacing_medium_32)
-                    , (int) mContext.getResources().getDimension(R.dimen.spacing_small_8)
+                    , (int) mContext.getResources().getDimension(R.dimen.spacing_medial_24)
+                    , (int) mContext.getResources().getDimension(R.dimen.spacing_null)
             );
             holder.mRelativeLayout.setLayoutParams(layoutParams);
             holder.mLineMessage.setCardBackgroundColor(mContext.getResources().getColor(R.color.message_guest));
         } else {
             holder.mSay.setVisibility(View.VISIBLE);
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            layoutParams.setMargins((int) mContext.getResources().getDimension(R.dimen.spacing_medium_32)
+            layoutParams.setMargins((int) mContext.getResources().getDimension(R.dimen.spacing_medial_24)
                     , (int) mContext.getResources().getDimension(R.dimen.spacing_small_8)
-                    , (int) mContext.getResources().getDimension(R.dimen.spacing_small_8)
-                    , (int) mContext.getResources().getDimension(R.dimen.spacing_small_8)
+                    , (int) mContext.getResources().getDimension(R.dimen.spacing_null)
+                    , (int) mContext.getResources().getDimension(R.dimen.spacing_null)
             );
             holder.mRelativeLayout.setLayoutParams(layoutParams);
             holder.mLineMessage.setCardBackgroundColor(mContext.getResources().getColor(R.color.message_user));
@@ -212,7 +209,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
      * @param position position message in list
      */
     public void deleteMessage(int position) {
-        // TODO: 05.08.2016 удаление сообщение с БД
         mMessages.remove(position);
         this.notifyDataSetChanged();
     }
@@ -249,7 +245,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
             mMainActivity.setRecognizer(null);
         }
     }
-    // TODO: 28.07.2016 зеленый фон проигрываемого сообщения
 
     /**
      * Holder view phrase

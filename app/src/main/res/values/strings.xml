@@ -5,10 +5,23 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="language_rus">Русский</string>
     <string name="language_eng">Английский</string>
+    <string name="txt_yandex_speech">Приложение использует сервис \n \'\'Yandex SpeechKit Mobile SDK\'\'</string>
+    <string name="phrase">Готовые фразы</string>
+    <string name="new_dialog">Новый диалог</string>
+    <string name="api_key">API-ключ Яндекс</string>
+    <string name="api_key_edit">Введите API-ключ</string>
+    <string name="edit">Изменить</string>
+    <string name="edit_text">Введите текст</string>
+    <string name="language_speech">Язык речи</string>
+    <string name="voice_synthes">Голос синтеза</string>
+    <string name="hystory_dialogs">История диалогов</string>
+    <string name="settings">Настройки</string>
+    <string name="about_program">О программе</string>
+    <string name="exit">Выйти</string>
+    <string name="create_phrase">Создать фразу</string>
+    <string name="micro">Микрофон</string>
 </resources>

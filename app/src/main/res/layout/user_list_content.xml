@@ -1,29 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
+    style="@style/MainWindowCustom"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingLeft="@dimen/spacing_small_8"
-    android:paddingRight="@dimen/spacing_small_8"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_main">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/messages_recycle"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/write_bar"
-        android:orientation="vertical"/>
-
+        style="@style/MMParent"
+        android:layout_above="@+id/write_bar"/>
 
     <fr.castorflex.android.smoothprogressbar.SmoothProgressBar
         android:id="@+id/mirror_progressbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:indeterminate="true"
+        style="@style/SmoothProgressBarCustom"
+        android:layout_above="@+id/write_bar"
         app:spb_color="@color/color_accent"
         app:spb_colors="@array/colors_progressbar"
         app:spb_interpolator="spb_interpolator_decelerate"
@@ -35,33 +27,21 @@
         app:spb_sections_count="5"
         app:spb_speed="2.0"
         app:spb_stroke_separator_length="20dp"
-        app:spb_stroke_width="3dp"
-        android:layout_above="@+id/write_bar"/>
+        app:spb_stroke_width="3dp"/>
 
     <RelativeLayout
         android:id="@+id/write_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/MWParent"
         android:layout_alignParentBottom="true">
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/write_txt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/spacing_medial_24"
-            android:hint="Введите текст"/>
+            style="@style/InputTextCustom"/>
 
         <ImageView
             android:id="@+id/send_message_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/ic_send_black_24dp"/>
+            style="@style/InputTextImageCustom"/>
 
     </RelativeLayout>
-
 
 </RelativeLayout>

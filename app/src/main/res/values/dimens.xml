@@ -13,12 +13,15 @@
     <dimen name="size_large_72">72dp</dimen>
 
     <!--Spaces-->
+    <dimen name="spacing_null">0dp</dimen>
     <dimen name="spacing_small_8">8dp</dimen>
+    <dimen name="spacing_very_small_4">4dp</dimen>
     <dimen name="spacing_normal_16">16dp</dimen>
     <dimen name="spacing_medial_24">24dp</dimen>
     <dimen name="spacing_medium_32">32dp</dimen>
     <dimen name="spacing_large_56">56dp</dimen>
     <dimen name="spacing_larger_72">72dp</dimen>
+    <dimen name="spacing_big_64">64dp</dimen>
     <dimen name="spacing_navbar_172">172dp</dimen>
     <dimen name="font_medium_20">20sp</dimen>
     <dimen name="font_large_24">24sp</dimen>

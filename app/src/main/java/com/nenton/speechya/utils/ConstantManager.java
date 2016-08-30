@@ -14,7 +14,6 @@ public interface ConstantManager {
     String STRING_DELETE_MESSAGE = "Вы действительно хотите удалить сообщение?";
     String STRING_DELETE_BUTTON = "Удалить";
     int ADD_PHRASE = 51;
-    int SHOW_RESIZE_MESSAGE = 52;
     long LONG_NULL = 0;
     int INT_NULL = 0;
     int INT_CHRONOS_DELETE_DIALOG = 456;
@@ -26,4 +25,7 @@ public interface ConstantManager {
     String API_KEY = "API_KEY";
     String SPEECH_VOICE_KEY = "SPEECH_VOICE_KEY";
     String SPEECH_VOICE_VOCALIZER_KEY = "SPEECH_VOICE_VOCALIZER_KEY";
+    String STRING_MODE_RECOGNIZER = "MODE_RECOGNIZER";
+    String STRING_EDIT_API_SETTINGS = "STRING_EDIT_API_SETTINGS";
+    String STRING_SITE_SDK = "https://tech.yandex.ru/speechkit/mobilesdk/";
 }

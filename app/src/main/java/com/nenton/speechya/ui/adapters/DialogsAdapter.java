@@ -56,7 +56,6 @@ public class DialogsAdapter extends RecyclerView.Adapter<DialogsAdapter.DialogsV
         String format = (new SimpleDateFormat(ConstantManager.STRING_FORMAT_DATE)).format(new Date(dialog.getLastEditDate()));
         holder.mTextDate.setText(format);
         holder.mTextLastMessage.setText(dialog.getLastMessage());
-
         holder.mCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

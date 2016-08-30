@@ -87,9 +87,6 @@ public class DialogsActivity extends AppCompatActivity {
     private void setupRecycle() {
         mChronosConnector.runOperation(new ChronosDelete(ConstantManager.INT_CHRONOS_DELETE_DIALOGS),true);
         mChronosConnector.runOperation(new ChronosGetDialogs(),true);
-//        mDialogs = mDataManager.getDialogs();
-//        dialogsAdapter = new DialogsAdapter(mDialogs);
-//        mRecyclerView.setAdapter(dialogsAdapter);
     }
 
     public void onOperationFinished(final ChronosGetDialogs.Result result) {
@@ -111,8 +108,6 @@ public class DialogsActivity extends AppCompatActivity {
                 Dialog dialog = mDialogs.get(viewHolder.getAdapterPosition());
                 mChronosConnector.runOperation(new ChronosDelete(dialog.getId(), ConstantManager.INT_CHRONOS_DELETE_DIALOG),true);
                 mChronosConnector.runOperation(new ChronosDelete(dialog.getDateCreateDialog(), ConstantManager.INT_CHRONOS_DELETE_MESSAGES),true);
-//                mDataManager.deleteDialog(dialog.getId());
-//                mDataManager.deleteMessages(dialog.getDateCreateDialog());
                 mDialogs.remove(viewHolder.getAdapterPosition());
                 dialogsAdapter.notifyDataSetChanged();
             }

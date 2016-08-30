@@ -5,6 +5,6 @@
         android:id="@+id/micro"
         android:icon="@drawable/ic_mic_off_white_24dp"
         android:orderInCategory="100"
-        android:title="Микрофон"
+        android:title="@string/micro"
         app:showAsAction="ifRoom"/>
 </menu>

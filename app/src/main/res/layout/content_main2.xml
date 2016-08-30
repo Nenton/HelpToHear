@@ -3,63 +3,43 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="@dimen/spacing_small_8"
-    android:paddingRight="@dimen/spacing_small_8"
+    style="@style/MainWindowCustom"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".ui.activities.Main2Activity"
-    tools:showIn="@layout/app_bar_main2">
+    tools:showIn="@layout/activity_main2">
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="none"
-        android:scrollY="@dimen/spacing_small_8">
+        style="@style/MMParent"
+        android:scrollbars="none">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/MWParent"
             android:orientation="vertical">
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/spacing_small_8"
-                android:text="Готовые фразы"/>
+                style="@style/MWParent"
+                android:layout_marginTop="@dimen/spacing_small_8"
+                android:text="@string/phrase"/>
 
             <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/grey_light"
-                android:layout_marginLeft="@dimen/spacing_small_8"
-                android:layout_marginRight="@dimen/spacing_small_8"/>
+                style="@style/DividerLine"/>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/standart_phrase"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:paddingLeft="@dimen/spacing_small_8"
-                android:paddingRight="@dimen/spacing_small_8"
-                android:layout_marginBottom="64dp"/>
+                style="@style/RecycleViewCustom"
+                android:paddingLeft="0dp"
+                android:paddingRight="0dp"
+                android:layout_marginBottom="@dimen/spacing_big_64"/>
 
         </LinearLayout>
 
     </ScrollView>
 
-
     <Button
         android:id="@+id/new_dialog"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/spacing_small_8"
+        style="@style/ButtonCustom"
         android:background="@drawable/button_rect"
-        android:paddingLeft="@dimen/spacing_small_8"
-        android:paddingRight="@dimen/spacing_small_8"
-        android:text="Новый диалог"
+        android:text="@string/new_dialog"
         android:textColor="@color/white"/>
 
 </RelativeLayout>

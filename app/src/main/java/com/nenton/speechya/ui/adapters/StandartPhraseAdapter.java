@@ -60,7 +60,6 @@ public class StandartPhraseAdapter extends RecyclerView.Adapter<StandartPhraseAd
                 DataManager.getInstanse().getPreferencesManager().setCreateDateDialog(date.getTime());
                 DataManager.getInstanse().getChronosConnector().runOperation(new ChronosCreate(new Dialog(date.getTime(), standartPhrase.getPhrase())),true);
                 DataManager.getInstanse().getChronosConnector().runOperation(new ChronosCreate(new Messages(standartPhrase.getPhrase(), false, date.getTime(), date.getTime())),true);
-//                createNewMessage(new Messages(standartPhrase.getPhrase(), false, date.getTime(), date.getTime()));
                 Intent intent = new Intent(mContext, MainActivity.class);
                 mContext.startActivity(intent);
             }

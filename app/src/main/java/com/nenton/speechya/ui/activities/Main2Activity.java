@@ -104,11 +104,7 @@ public class Main2Activity extends AppCompatActivity implements NavigationView.O
     }
 
     private void setupStandartPhrase() {
-//        standartPhrases = mDataManager.getStandartPhrase();
         mChronosConnector.runOperation(new ChronosGetPhrase(),true);
-//        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        adapter = new StandartPhraseAdapter(standartPhrases);
-//        mRecyclerView.setAdapter(adapter);
     }
 
     public void onOperationFinished(final ChronosGetPhrase.Result result) {
@@ -127,46 +123,10 @@ public class Main2Activity extends AppCompatActivity implements NavigationView.O
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
                 final int fromPosition = viewHolder.getAdapterPosition();
                 final int toPosition = target.getAdapterPosition();
-//                List<Long> sortPositions = new ArrayList<>();
-//                if (toPosition > fromPosition){
-//                    for (int i = 0; i <= toPosition-fromPosition; i++) {
-//                        sortPositions.add(standartPhrases.get(fromPosition+i).getSortPosition());
-//                    }
-//                } else {
-//                    for (int i = 0; i <= fromPosition - toPosition; i++) {
-//                        sortPositions.add(standartPhrases.get(toPosition+i).getSortPosition());
-//                    }
-//                }
-//                StandartPhrase sPto = standartPhrases.get(toPosition);
                 StandartPhrase sPfrom = standartPhrases.remove(fromPosition);
-
                 standartPhrases.add(toPosition, sPfrom);
-                List<Long> longs = new ArrayList<>();
-                if (toPosition > fromPosition){
-                    for (int i = fromPosition; i < toPosition; i++) {
-                        longs.add(standartPhrases.get(i).getSortPosition());
-                    }
-                }
-//                mChronosConnector.runOperation(new ChronosUpdatePhrase(standartPhrases.get(toPosition).getMId(),standartPhrases.get(fromPosition).getSortPosition()),true);
-//                mChronosConnector.runOperation(new ChronosUpdatePhrase(standartPhrases.get(fromPosition).getMId(), standartPhrases.get(toPosition).getSortPosition()),true);
-//                long sortPosition = sPfrom.getSortPosition();
-//                long sort;
-                if (toPosition > fromPosition) {
-//                    mDataManager.updatePhrase(prev.getMId(), toPosition);
-                    mChronosConnector.runOperation(new ChronosUpdatePhrase(standartPhrases.get(fromPosition).getMId(), sPfrom.getSortPosition()),true);
-//                    sortPosition = standartPhrases.get(fromPosition).getSortPosition();
-                    for (int i = 0; i <= toPosition-fromPosition - 1; i++) {
-//                        mDataManager.updatePhrase(standartPhrases.get(i).getMId(), i);
-                        mChronosConnector.runOperation(new ChronosUpdatePhrase(standartPhrases.get(i + fromPosition + 1).getMId(), longs.get(i)),true);
-//                        sortPosition = standartPhrases.get(i).getSortPosition();
-                    }
-                } else {
-//                    mDataManager.updatePhrase(prev.getMId(), toPosition);
-                    mChronosConnector.runOperation(new ChronosUpdatePhrase(standartPhrases.get(fromPosition).getMId(), sPfrom.getSortPosition()),true);
-                    for (int i = toPosition; i < fromPosition; i++) {
-//                        mDataManager.updatePhrase(standartPhrases.get(i).getMId(), i);
-                        mChronosConnector.runOperation(new ChronosUpdatePhrase(standartPhrases.get(i).getMId(), standartPhrases.get(i+1).getSortPosition()),true);
-                    }
+                for (int i = 0; i < standartPhrases.size(); i++) {
+                    mChronosConnector.runOperation(new ChronosUpdatePhrase(standartPhrases.get(i).getMId(),(long)(standartPhrases.size()-i)),true);
                 }
                 adapter.notifyItemMoved(fromPosition, toPosition);
                 return true;
@@ -180,7 +140,6 @@ public class Main2Activity extends AppCompatActivity implements NavigationView.O
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
                 StandartPhrase standartPhrase = standartPhrases.get(viewHolder.getAdapterPosition());
-//                mDataManager.deleteStandartPhrase(standartPhrase.getMId());
                 mChronosConnector.runOperation(new ChronosDelete(standartPhrase.getMId(),ConstantManager.INT_CHRONOS_DELETE_PHRASE),true);
                 standartPhrases.remove(viewHolder.getAdapterPosition());
                 adapter.notifyDataSetChanged();
@@ -201,7 +160,6 @@ public class Main2Activity extends AppCompatActivity implements NavigationView.O
             public void onClick(View v) {
                 Date date = new Date();
                 mDataManager.getPreferencesManager().setCreateDateDialog(date.getTime());
-//                mDataManager.createNewDialog(new Dialog(date.getTime()));
                 mChronosConnector.runOperation(new ChronosCreate(new Dialog(date.getTime())),true);
                 Intent intent = new Intent(Main2Activity.this, MainActivity.class);
                 startActivity(intent);
@@ -224,7 +182,6 @@ public class Main2Activity extends AppCompatActivity implements NavigationView.O
                                 if (!inflate.getText().toString().isEmpty()) {
                                     StandartPhrase standartPhrase = new StandartPhrase(inflate.getText().toString(), (new Date()).getTime());
                                     standartPhrases.add(ConstantManager.INT_NULL, standartPhrase);
-//                                    mDataManager.createNewPhrase(standartPhrase);
                                     mChronosConnector.runOperation(new ChronosCreate(standartPhrase),true);
                                     inflate.setText(ConstantManager.STRING_EMPTY);
                                     adapter.notifyDataSetChanged();
@@ -297,6 +254,9 @@ public class Main2Activity extends AppCompatActivity implements NavigationView.O
             startActivity(intent);
         } else if (id == R.id.exit) {
             finish();
+        } else if (id == R.id.about) {
+            Intent intent = new Intent(Main2Activity.this, AboutActivity.class);
+            startActivity(intent);
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

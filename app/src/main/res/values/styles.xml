@@ -17,7 +17,7 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
-    <style name="VoiceVolumeStyle" parent="android:Widget.ProgressBar.Horizontal" />
+    <style name="VoiceVolumeStyle" parent="android:Widget.ProgressBar.Horizontal"/>
 
     <style name="ToolBarStyle" parent="Theme.AppCompat">
         <item name="android:textColorPrimary">@color/white</item>
@@ -25,5 +25,125 @@
         <item name="android:actionMenuTextColor">@color/white</item>
     </style>
 
+    <style name="DrawerLayout" parent="MMParent">
+        <item name="android:fitsSystemWindows">true</item>
+    </style>
+
+    <style name="MMParent">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="MWParent">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="WMParent">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="WWParent">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="ToolbarLayoutCustom">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:background">@color/color_primary</item>
+    </style>
+
+    <style name="NavigationViewCustom" parent="WMParent">
+        <item name="android:layout_gravity">start</item>
+        <item name="android:fitsSystemWindows">true</item>
+    </style>
+
+    <style name="RecycleViewCustom" parent="MMParent">
+        <item name="android:paddingLeft">@dimen/spacing_small_8</item>
+        <item name="android:paddingRight">@dimen/spacing_small_8</item>
+    </style>
+
+    <style name="DividerLine">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/grey_light</item>
+    </style>
+
+    <style name="MainWindowCustom" parent="MMParent">
+        <item name="android:paddingLeft">@dimen/spacing_normal_16</item>
+        <item name="android:paddingRight">@dimen/spacing_normal_16</item>
+    </style>
+
+    <style name="SmoothProgressBarCustom" parent="MWParent">
+        <item name="android:indeterminate">true</item>
+    </style>
+
+    <style name="InputTextCustom" parent="MWParent">
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginRight">@dimen/spacing_medial_24</item>
+        <item name="android:hint">@string/edit_text</item>
+    </style>
+
+    <style name="InputTextImageCustom" parent="WWParent">
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:src">@drawable/ic_send_black_24dp</item>
+    </style>
+
+    <style name="ButtonCustom" parent="WWParent">
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_marginBottom">@dimen/spacing_small_8</item>
+        <item name="android:paddingLeft">@dimen/spacing_small_8</item>
+        <item name="android:paddingRight">@dimen/spacing_small_8</item>
+    </style>
+
+    <style name="SpinnerCustom" parent="MWParent">
+        <item name="android:spinnerMode">dialog</item>
+    </style>
+
+    <style name="TextSettings" parent="WWParent">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="TextMessage" parent="WWParent">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginLeft">@dimen/spacing_very_small_4</item>
+    </style>
+
+    <style name="TextMessageBig" parent="TextSettings">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:paddingBottom">@dimen/spacing_medium_32</item>
+    </style>
+
+    <style name="TextMessageLast" parent="TextSettings">
+        <item name="android:maxLines">3</item>
+
+    </style>
+
+    <style name="CardViewCustom" parent="MWParent">
+        <item name="android:layout_marginTop">@dimen/spacing_small_8</item>
+    </style>
+
+    <style name="DialogAddPhraseCustom" parent="MWParent">
+        <item name="android:layout_marginLeft">@dimen/spacing_small_8</item>
+        <item name="android:layout_marginRight">@dimen/spacing_small_8</item>
+        <item name="android:inputType">text</item>
+    </style>
+
+    <style name="CircularProgressBarCustom">
+        <item name="android:layout_width">@dimen/spacing_medium_32</item>
+        <item name="android:layout_height">@dimen/spacing_medium_32</item>
+        <item name="android:indeterminate">true</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="ImageViewSayCustom" parent="WWParent">
+        <item name="android:layout_margin">@dimen/spacing_very_small_4</item>
+    </style>
 
 </resources>

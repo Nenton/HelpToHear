@@ -12,7 +12,6 @@
         <activity
             android:name=".ui.activities.MainActivity"
             android:label="Диалог"
-
             android:parentActivityName=".ui.activities.Main2Activity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -38,6 +37,13 @@
         <activity
             android:name=".ui.activities.SettingsActivity"
             android:label="Настройки"
+            android:parentActivityName=".ui.activities.Main2Activity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activities.Main2Activity"/>
+        </activity>
+        <activity android:name=".ui.activities.AboutActivity"
+            android:label="О программе"
             android:parentActivityName=".ui.activities.Main2Activity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

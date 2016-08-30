@@ -25,8 +25,6 @@ public class SpeechApplication extends Application{
     private static DaoSession sDaoSession;
     private static ChronosConnector sChronosConnector;
 
-
-
     /**
      * Create shared preferences
      */
@@ -49,14 +47,26 @@ public class SpeechApplication extends Application{
         return sSharedPreferences;
     }
 
+    /**
+     * Get chronos connector
+     * @return chronos connector
+     */
     public static ChronosConnector getChronosConnector() {
         return sChronosConnector;
     }
 
+    /**
+     * Get current context
+     * @return current context
+     */
     public static Context getContext() {
         return sContext;
     }
 
+    /**
+     * Get current dao session
+     * @return current dao session
+     */
     public static DaoSession getDaoSession() {
         return sDaoSession;
     }

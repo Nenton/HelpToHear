@@ -5,6 +5,6 @@
         android:id="@+id/action_add"
         android:icon="@drawable/ic_add_white_24dp"
         android:orderInCategory="100"
-        android:title="Создать фразу"
+        android:title="@string/create_phrase"
         app:showAsAction="ifRoom"/>
 </menu>
